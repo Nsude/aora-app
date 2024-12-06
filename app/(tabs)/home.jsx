@@ -21,11 +21,11 @@ const Home = () => {
     setRefreshing(false);
   }
 
-  // console.log(posts?.documents)
-
   return (
-    <SafeAreaView className='bg-primary h-full flex-1'>
+    <SafeAreaView className='bg-primary min-h-[95vh] flex-1'>
       <FlatList 
+        className='min-h-[100%]'
+        contentContainerStyle={{flexGrow: 1}}
         data={posts?.documents}
         keyExtractor={(item) => item.$id || new Date().getTime()}
         ListHeaderComponent={() => (
