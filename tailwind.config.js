@@ -34,6 +34,9 @@ module.exports = {
         pextrabold: ["Poppins-ExtraBold", "sans-serif"],
         pblack: ["Poppins-Black", "sans-serif"],
       },
+      boxShadow: {
+        "custom": "10px 10px 10px rgba(0, 0, 0, 1)"
+      }
     },
   },
   plugins: [],

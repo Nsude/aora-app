@@ -8,10 +8,12 @@ import CustomButton from '../../components/CustomButton';
 import { Link, router } from 'expo-router';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { login } from '../../lib/appwrite';
+import { useGlobalContext } from '../../contexts/GlobalContext';
 
 const SignUp = () => {
   const [form, setform] = useState({email: "", password: ""});
   const [isSubmiting, setisSubmiting] = useState(false);
+  const { setUser, setisLoggedIn } = useGlobalContext();
 
   const submit = async () => {
     if (!form.email || !form.password) {
@@ -22,6 +24,8 @@ const SignUp = () => {
       setisSubmiting(true);
 
       const result = await login(form.email, form.password)
+      setUser(result);
+      setisLoggedIn(true);
 
       router.replace('/home');
     } catch (error) {
