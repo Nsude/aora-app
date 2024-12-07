@@ -9,11 +9,17 @@ import EmptyState from '../../components/EmptyState';
 import { getAllPosts, getTrendingVideos } from '../../lib/appwrite';
 import { useAppwrite } from '../../hooks/useAppwrite';
 import VideoFeed from '../../components/VideoFeed';
+import { useGlobalContext } from '../../contexts/GlobalContext';
 
 const Home = () => {
+  const {user} = useGlobalContext();
   const { data: posts, refetchData } = useAppwrite(getAllPosts);
   const { data: trendingVideos } = useAppwrite(getTrendingVideos);
   const [refreshing, setRefreshing] = useState(false);
+
+  useEffect(() => {
+    onRefresh();
+  }, [])
 
   const onRefresh = async () => {
     setRefreshing(true);
@@ -33,7 +39,7 @@ const Home = () => {
             <View className='flex-row my-5 justify-between items-center'>
               <View>
                 <Text className='text-gray-100 text-sm font-pregular mb-1'>Welcome Back</Text>
-                <Text className='text-white text-2xl font-psemibold'>Malik</Text>
+                <Text className='text-white text-2xl font-psemibold'>{user.username}</Text>
               </View>
               <View>
                 <Image 

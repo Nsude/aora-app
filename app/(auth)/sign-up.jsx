@@ -7,7 +7,7 @@ import FormField from '../../components/FormField';
 import CustomButton from '../../components/CustomButton';
 import { Link, router } from 'expo-router';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-import { createUser } from '../../lib/appwrite';
+import { createUser, getCurrentUser } from '../../lib/appwrite';
 import { useGlobalContext } from '../../contexts/GlobalContext';
 
 const SignIn = () => {
@@ -20,10 +20,11 @@ const SignIn = () => {
       return Alert.alert("Error", "Please fill all fields");
     }
 
+    setisSubmiting(true);
     try {
-      setisSubmiting(true);
-      const result = await createUser(form.email, form.password, form.username);
-      setUser(result);
+      await createUser(form.email, form.password, form.username);
+      const currentUser = await getCurrentUser();
+      setUser(currentUser);
       setisLoggedIn(true);
 
       router.replace('/home');
